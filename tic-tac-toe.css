@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.gameboard {
+    border: 5px solid gray;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 610px;
+    height: 610px;
+    background-color: gray;
+    gap: 5px;
+}
+
+.cell {
+    height: 200px;
+    width: 200px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    font-size: 3rem;
+    color: black;
+    box-sizing: border-box;
+    background-color: white;
+}
