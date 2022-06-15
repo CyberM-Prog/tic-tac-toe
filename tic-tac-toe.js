@@ -39,9 +39,7 @@ const gameBoard = (() => {
 const PlayerFactory = (name, choice) => ({name, choice})
 
 const game = (() => {
-    const player1 = PlayerFactory("John", "X")
-    const player2 = PlayerFactory("Jane", "O");
-
+    
     function endGame() {
         const board = gameBoard.board
         let winner
@@ -56,7 +54,7 @@ const game = (() => {
             (board[0] === "X" && board[4] === "X" && board[8] === "X") ||
             (board[2] === "X" && board[4] === "X" && board[6] === "X")) {
                 return winner = 1
-            }
+        }
         else if ((board[0] === "O" && board[1] === "O" && board[2] === "O") ||
             (board[3] === "O" && board[4] === "O" && board[5] === "O") ||
             (board[6] === "O" && board[7] === "O" && board[8] === "O") ||
@@ -68,12 +66,36 @@ const game = (() => {
             (board[0] === "O" && board[4] === "O" && board[8] === "O") ||
             (board[2] === "O" && board[4] === "O" && board[6] === "O")) {
                 return winner = 2
-            }
+        }
         else if (board[0] && board[1] && board[2] &&
             board[3] && board[4] && board[5] &&
-            board[6] && board[7] && board[8]) return winner = 0
-        
-    }
+            board[6] && board[7] && board[8]) {
+                return winner = 0
+        }        
+    };
+
+    let player1
+    let player2
+
+    const startgame = (function() {
+
+        const startButton = document.querySelector(".startbtn")
+        startButton.addEventListener("click", function() {
+
+            const playerInput1 = document.querySelector(".player1")
+            const playerInput2 = document.querySelector(".player2")
+
+            game.player1 = PlayerFactory(playerInput1.value, "X")
+            game.player2 = PlayerFactory(playerInput2.value, "O")
+
+            const boardContainer = document.querySelector(".gameboard")
+            boardContainer.classList.remove("hide")
+
+            const welcomeScreen = document.querySelector(".gamestart")
+            welcomeScreen.classList.add("hide")
+        })
+        return {player1, player2}
+    })()        
 
     return {player1, player2, endGame}
 })();
