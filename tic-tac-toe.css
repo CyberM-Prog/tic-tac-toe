@@ -89,3 +89,9 @@ body {
 #turn {
     font-size: 3rem;
 }
+
+#restart {
+    font-size: 1.25rem;
+    padding: 5px 10px;
+    margin-bottom: auto; 
+}

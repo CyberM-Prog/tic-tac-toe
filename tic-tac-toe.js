@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-    const board = ["", "", "", "", "", "", "", "", ""];
+    let board = ["", "", "", "", "", "", "", "", ""];
 
     (function renderBoard() {
         const boardContainer = document.querySelector(".gameboard")
@@ -16,29 +16,52 @@ const gameBoard = (() => {
     const cells = document.querySelectorAll(".cell")
     
     let i = 0
-    cells.forEach(cell => {
-        cell.addEventListener("click", function() {
-            if (game.endGame() !== 1 && game.endGame() !== 2) {
 
-                const cellId = cell.id
-                if (i % 2 === 0) {
-                    board[cellId] = game.player1.choice
-                    turn.textContent = game.player2.name + "'s turn"
-                }
-                else {
-                    board[cellId] = game.player2.choice
-                    turn.textContent = game.player1.name + "'s turn"
-                }
-                this.textContent = board[cellId]
-                i++
+    function cellClick() {
+        if (game.endGame() !== 1 && game.endGame() !== 2) {
+
+            const cellId = this.id
+            if (i % 2 === 0) {
+                board[cellId] = game.player1.choice
+                turn.textContent = game.player2.name + "'s turn"
             }
-            
-            if (game.endGame() === 1) turn.textContent = game.player1.name + " wins!"
-            if (game.endGame() === 2) turn.textContent = game.player2.name + " wins!"
-            if (game.endGame() === 0) turn.textContent = "Draw!"            
-        }, {once: true})
+            else {
+                board[cellId] = game.player2.choice
+                turn.textContent = game.player1.name + "'s turn"
+            }
+            this.textContent = board[cellId]
+            i++
+        }
+        
+        if (game.endGame() === 1) turn.textContent = game.player1.name + " wins!"
+        if (game.endGame() === 2) turn.textContent = game.player2.name + " wins!"
+        if (game.endGame() === 0) turn.textContent = "Draw!"            
+    }    
+
+    cells.forEach(cell => {
+        cell.addEventListener("click", cellClick, {once: true})
     })
 
+    restart.addEventListener("click", function() {
+        gameBoard.board = ["", "", "", "", "", "", "", "", ""];
+        board = gameBoard.board
+
+        cells.forEach(cell => {
+            cell.textContent = ""
+            cell.addEventListener("click", cellClick, {once: true})
+        })
+
+        game.player1.name = ""
+        game.player2.name = ""
+
+        const boardContainer = document.querySelector(".gameboard")
+        const welcomeScreen = document.querySelector(".gamestart")
+
+        boardContainer.classList.add("hide")
+        turn.classList.add("hide")
+        welcomeScreen.classList.remove("hide")
+        restart.classList.add("hide")
+    })
     return {board}
 })()
 
@@ -102,9 +125,10 @@ const game = (() => {
             welcomeScreen.classList.add("hide")
 
             turn.textContent = game.player1.name + "'s turn"
+            restart.classList.remove("hide")
         })
         return {player1, player2}
     })()        
-
+    
     return {player1, player2, endGame}
 })();
