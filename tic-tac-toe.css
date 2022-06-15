@@ -11,6 +11,7 @@ body {
     height: 100vh;
     justify-items: center;
     align-items: center ;
+    box-sizing: border-box;
 }
 
 .gameboard {
@@ -23,7 +24,7 @@ body {
     background-color: gray;
     gap: 5px;
     border-radius: 5px;
-    
+    margin-bottom: auto;
 }
 
 .cell {
@@ -32,7 +33,7 @@ body {
     display: grid;
     justify-items: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 5rem;
     color: black;
     box-sizing: border-box;
     background-color: white;
@@ -48,6 +49,7 @@ body {
     justify-items: center;
     border-radius: 8px;
     align-items: center;
+    align-self: center;
 }
 
 .gamestart > h1 {
@@ -82,4 +84,8 @@ body {
 
 .hide {
     display: none;
+}
+
+#turn {
+    font-size: 3rem;
 }

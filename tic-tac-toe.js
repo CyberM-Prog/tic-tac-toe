@@ -21,15 +21,21 @@ const gameBoard = (() => {
             if (game.endGame() !== 1 && game.endGame() !== 2) {
 
                 const cellId = cell.id
-                if (i % 2 === 0) board[cellId] = game.player1.choice
-                else board[cellId] = game.player2.choice
+                if (i % 2 === 0) {
+                    board[cellId] = game.player1.choice
+                    turn.textContent = game.player2.name + "'s turn"
+                }
+                else {
+                    board[cellId] = game.player2.choice
+                    turn.textContent = game.player1.name + "'s turn"
+                }
                 this.textContent = board[cellId]
                 i++
             }
             
-            if (game.endGame() === 1) console.log("Player 1 WINS!")
-            if (game.endGame() === 2) console.log("Player 2 WINS!")
-            if (game.endGame() === 0) console.log("Tie")            
+            if (game.endGame() === 1) turn.textContent = game.player1.name + " wins!"
+            if (game.endGame() === 2) turn.textContent = game.player2.name + " wins!"
+            if (game.endGame() === 0) turn.textContent = "Draw!"            
         }, {once: true})
     })
 
@@ -90,9 +96,12 @@ const game = (() => {
 
             const boardContainer = document.querySelector(".gameboard")
             boardContainer.classList.remove("hide")
+            turn.classList.remove("hide")
 
             const welcomeScreen = document.querySelector(".gamestart")
             welcomeScreen.classList.add("hide")
+
+            turn.textContent = game.player1.name + "'s turn"
         })
         return {player1, player2}
     })()        
